@@ -55,27 +55,37 @@ const ProviderList: React.FC = () => {
           />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {paginatedItems.map((provider: LaundryProvider) => (
-            <ProviderCard
-              key={provider.id}
-              provider={provider}
-              onClick={() => history.push(`/provider/${provider.id}`)}
-            />
-          ))}
-        </div>
-
-        <div className="flex justify-between items-center mt-4">
-          <IonButton onClick={prevPage} disabled={currentPage === 1}>
-            Previous
-          </IonButton>
-          <span>
-            Page {currentPage} of {totalPages}
-          </span>
-          <IonButton onClick={nextPage} disabled={currentPage === totalPages}>
-            Next
-          </IonButton>
-        </div>
+        {paginatedItems.length === 0 ? (
+          <div className="text-center text-gray-500">
+            Pencarian tidak ditemukan
+          </div>
+        ) : (
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {paginatedItems.map((provider: LaundryProvider) => (
+                <ProviderCard
+                  key={provider.id}
+                  provider={provider}
+                  onClick={() => history.push(`/provider/${provider.id}`)}
+                />
+              ))}
+            </div>
+            <div className="flex justify-between items-center mt-4">
+              <IonButton onClick={prevPage} disabled={currentPage === 1}>
+                Previous
+              </IonButton>
+              <span>
+                Page {currentPage} of {totalPages}
+              </span>
+              <IonButton
+                onClick={nextPage}
+                disabled={currentPage === totalPages}
+              >
+                Next
+              </IonButton>
+            </div>
+          </>
+        )}
       </IonContent>
     </IonPage>
   );

@@ -11,7 +11,11 @@ import {
 } from "@ionic/react";
 import { useParams, useHistory } from "react-router-dom";
 import { getItem } from "../utils/localStorage";
-import { LaundryProvider, LaundryService } from "../types";
+import {
+  LaundryProvider,
+  LaundryService,
+  LaundryServiceExtended,
+} from "../types";
 import ServiceCard from "../components/ServiceCard";
 import SearchBar from "../components/SearchBar";
 import { usePagination } from "../hooks/usePagination";
@@ -25,9 +29,9 @@ const ProviderDetail: React.FC = () => {
     getItem("providers") || []
   ).find((p: LaundryProvider) => p.id === id);
 
-  const allServices: LaundryService[] = (getItem("services") || []).filter(
-    (s: LaundryService) => s.providerId === id
-  );
+  const allServices: LaundryServiceExtended[] = (
+    getItem("services") || []
+  ).filter((s: LaundryService) => s.providerId === id);
 
   const filteredServices = useMemo(() => {
     return allServices.filter((service) =>
@@ -84,30 +88,37 @@ const ProviderDetail: React.FC = () => {
             <h3 className="text-lg font-semibold mb-4">Available Services</h3>
             <SearchBar value={searchQuery} onSearch={setSearchQuery} />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {services.map((service) => (
-                <ServiceCard
-                  key={service.id}
-                  service={service}
-                  onClick={() => history.push(`/order/${service.id}`)}
-                />
-              ))}
-            </div>
-
-            <div className="flex justify-between items-center mt-4">
-              <IonButton onClick={prevPage} disabled={currentPage === 1}>
-                Previous
-              </IonButton>
-              <span>
-                Page {currentPage} of {totalPages}
-              </span>
-              <IonButton
-                onClick={nextPage}
-                disabled={currentPage === totalPages}
-              >
-                Next
-              </IonButton>
-            </div>
+            {services.length === 0 ? (
+              <div className="text-center text-gray-500">
+                Pencarian tidak ditemukan
+              </div>
+            ) : (
+              <>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {services.map((service) => (
+                    <ServiceCard
+                      key={service.id}
+                      service={service}
+                      onClick={() => history.push(`/order/${service.id}`)}
+                    />
+                  ))}
+                </div>
+                <div className="flex justify-between items-center mt-4">
+                  <IonButton onClick={prevPage} disabled={currentPage === 1}>
+                    Previous
+                  </IonButton>
+                  <span>
+                    Page {currentPage} of {totalPages}
+                  </span>
+                  <IonButton
+                    onClick={nextPage}
+                    disabled={currentPage === totalPages}
+                  >
+                    Next
+                  </IonButton>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </IonContent>

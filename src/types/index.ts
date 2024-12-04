@@ -1,34 +1,36 @@
-export interface User {
+export type User = {
   id: string;
   name: string;
   email: string;
   password: string;
-}
+};
 
-export interface LaundryProvider {
+export type LaundryProvider = {
   id: string;
   name: string;
   city: string;
   address: string;
   rating: number;
   image: string;
-}
+};
 
-export interface LaundryService {
+export type LaundryService = {
   id: string;
-  providerId: string;
   name: string;
+  providerId: string;
   type: string;
   price: number;
   unit: string;
-}
+};
 
-export interface Order {
+export type Order = {
   id: string;
   userId: string;
   serviceId: string;
   quantity: number;
   totalPrice: number;
-  status: 'pending' | 'paid' | 'processing' | 'completed';
+  status: "pending" | "paid" | "processing" | "completed";
   paymentMethod?: string;
-}
+};
+
+export type LaundryServiceExtended = LaundryService & LaundryProvider;

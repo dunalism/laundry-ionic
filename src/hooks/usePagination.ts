@@ -1,8 +1,8 @@
 import { useState, useMemo } from "react";
-import { LaundryProvider } from "../types";
+import { LaundryServiceExtended } from "../types";
 
 export const usePagination = (
-  items: LaundryProvider[],
+  items: LaundryServiceExtended[],
   itemsPerPage: number
 ) => {
   const [currentPage, setCurrentPage] = useState(1);
