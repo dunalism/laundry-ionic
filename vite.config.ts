@@ -7,4 +7,7 @@ import autoprefixer from "autoprefixer";
 export default defineConfig({
   plugins: [react()],
   css: { postcss: { plugins: [tailwindcss, autoprefixer] } },
+  build: {
+    outDir: "build",
+  },
 });
