@@ -1,4 +1,4 @@
-import { IonSegment, IonSegmentButton, IonLabel } from '@ionic/react';
+import { IonSegment, IonSegmentButton, IonLabel } from "@ionic/react";
 
 interface CityFilterProps {
   cities: string[];
@@ -6,13 +6,20 @@ interface CityFilterProps {
   onSelectCity: (city: string) => void;
 }
 
-const CityFilter: React.FC<CityFilterProps> = ({ cities, selectedCity, onSelectCity }) => {
+const CityFilter: React.FC<CityFilterProps> = ({
+  cities,
+  selectedCity,
+  onSelectCity,
+}) => {
   return (
-    <IonSegment value={selectedCity} onIonChange={e => onSelectCity(e.detail.value!)}>
+    <IonSegment
+      value={selectedCity}
+      onIonChange={(e) => onSelectCity(e.detail.value! as string)}
+    >
       <IonSegmentButton value="all">
         <IonLabel>All</IonLabel>
       </IonSegmentButton>
-      {cities.map(city => (
+      {cities.map((city) => (
         <IonSegmentButton key={city} value={city}>
           <IonLabel>{city}</IonLabel>
         </IonSegmentButton>
